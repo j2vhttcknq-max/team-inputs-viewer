@@ -1,0 +1,50 @@
+{
+  "name": "team-inputs-viewer",
+  "version": "1.0.0",
+  "description": "A desktop viewer for team input data with Excel import/export support.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . team-inputs-viewer --platform=darwin --arch=all --out=dist --overwrite",
+    "dist": "electron-builder",
+    "dist:mac": "electron-builder --mac"
+  },
+  "dependencies": {
+    "echarts": "^5.4.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-packager": "^17.1.0",
+    "electron-builder": "^24.8.0"
+  },
+  "build": {
+    "appId": "com.teaminputs.viewer",
+    "productName": "Team Inputs Viewer",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220,
+          "type": "file"
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  }
+}
