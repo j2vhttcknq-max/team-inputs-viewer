@@ -32,6 +32,10 @@
       "category": "public.app-category.productivity"
     },
     "dmg": {
+      "window": {
+        "width": 540,
+        "height": 380
+      },
       "contents": [
         {
           "x": 130,

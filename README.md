@@ -20,13 +20,13 @@ npm run start
    git add .
    git commit -m "Initial website version"
    git branch -M main
-   git remote add origin https://github.com/<你的用户名>/team-inputs-viewer.git
+   git remote add origin https://github.com/michaelshi/team-inputs-viewer.git
    git push -u origin main
    ```
 3. 在 GitHub 仓库设置中打开 `Pages`
 4. 选择 `main` 分支、`root` 目录作为发布源
 5. 保存后等待 GitHub 发布，页面地址通常为：
-   `https://<你的用户名>.github.io/team-inputs-viewer/`
+   `https://michaelshi.github.io/team-inputs-viewer/`
 
 ## 访问方式
 

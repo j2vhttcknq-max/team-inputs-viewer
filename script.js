@@ -8,8 +8,6 @@ const elements = {
   fileInput: document.getElementById('fileInput'),
   uploadBtn: document.getElementById('uploadBtn'),
   saveBtn: document.getElementById('saveBtn'),
-  boxUrlInput: document.getElementById('boxUrlInput'),
-  loadBoxBtn: document.getElementById('loadBoxBtn'),
   searchInput: document.getElementById('searchInput'),
   statusFilter: document.getElementById('statusFilter'),
   dateFrom: document.getElementById('dateFrom'),
@@ -141,26 +139,50 @@ async function loadExcelFromUrl(url) {
 }
 
 async function loadDefaultData() {
-  if (window.location.protocol === 'file:') {
-    console.warn('本地 file:// 方式无法加载 team-inputs.json，请使用静态服务器或部署后访问。');
-    return;
-  }
+  const boxUrl = 'https://apple.box.com/s/tseyvar4l9h0hwdunkfjdpbrg7xilgce';
 
   try {
-    const response = await fetch('team-inputs.json');
-    if (!response.ok) {
-      throw new Error(`无法加载 team-inputs.json：${response.status} ${response.statusText}`);
-    }
-    const jsonData = await response.json();
-    state.rawData = jsonData.map(normalizeRow);
+    const { records, sheetName } = await loadExcelFromUrl(boxUrl);
+    state.rawData = records.map(normalizeRow);
     state.filteredData = [...state.rawData];
+    state.sheetName = sheetName;
     renderSummary(state.filteredData);
     renderTable(state.filteredData);
     renderCharts(state.filteredData);
     elements.detailPanel.style.display = 'none';
     elements.saveBtn.disabled = false;
+    console.log('已自动从 Box 加载 Excel 数据');
   } catch (error) {
-    console.warn('加载默认 JSON 数据失败：', error);
+    console.warn('自动加载 Box Excel 失败：', error);
+    if (window.location.protocol === 'file:' && window.DEFAULT_TEAM_INPUTS) {
+      console.log('使用本地嵌入数据 window.DEFAULT_TEAM_INPUTS');
+      state.rawData = window.DEFAULT_TEAM_INPUTS.map(normalizeRow);
+      state.filteredData = [...state.rawData];
+      renderSummary(state.filteredData);
+      renderTable(state.filteredData);
+      renderCharts(state.filteredData);
+      elements.detailPanel.style.display = 'none';
+      elements.saveBtn.disabled = false;
+      return;
+    }
+
+    // 回退到本地 JSON
+    try {
+      const response = await fetch('team-inputs.json');
+      if (!response.ok) {
+        throw new Error(`无法加载 team-inputs.json：${response.status} ${response.statusText}`);
+      }
+      const jsonData = await response.json();
+      state.rawData = jsonData.map(normalizeRow);
+      state.filteredData = [...state.rawData];
+      renderSummary(state.filteredData);
+      renderTable(state.filteredData);
+      renderCharts(state.filteredData);
+      elements.detailPanel.style.display = 'none';
+      elements.saveBtn.disabled = false;
+    } catch (jsonError) {
+      console.warn('加载本地 JSON 也失败：', jsonError);
+    }
   }
 }
 
@@ -343,35 +365,6 @@ function initialize() {
   });
 
   elements.saveBtn.addEventListener('click', saveToExcel);
-
-  elements.loadBoxBtn.addEventListener('click', async () => {
-    const url = elements.boxUrlInput.value.trim();
-    if (!url) {
-      return alert('请输入 Box 共享链接。');
-    }
-
-    try {
-      const { records, sheetName } = await loadExcelFromUrl(url);
-      state.rawData = records.map(normalizeRow);
-      state.filteredData = [...state.rawData];
-      state.sheetName = sheetName;
-      renderSummary(state.filteredData);
-      renderTable(state.filteredData);
-      renderCharts(state.filteredData);
-      elements.detailPanel.style.display = 'none';
-      elements.saveBtn.disabled = false;
-      alert('已成功从 Box 加载 Excel。');
-    } catch (error) {
-      console.error('加载 Box Excel 失败:', error);
-      if (confirm('直接加载失败，是否在新窗口打开 Box 链接下载文件？\n\n错误: ' + error.message)) {
-        const boxDownloadUrl = normalizeBoxLink(url);
-        window.open(boxDownloadUrl, '_blank');
-        alert('已在浏览器中打开，请下载 Excel 文件后上传。');
-      } else {
-        alert('加载 Box 文件失败：' + error.message);
-      }
-    }
-  });
 
   elements.fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
