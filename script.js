@@ -4,6 +4,11 @@ const state = {
   selectedItem: null
 };
 
+const GITHUB_EXCEL_URLS = [
+  'https://raw.githubusercontent.com/j2vhttcknq-max/team-inputs-viewer/main/team-inputs.xlsx',
+  'https://raw.githubusercontent.com/j2vhttcknq-max/team-inputs-viewer/gh-pages/team-inputs.xlsx'
+];
+
 const elements = {
   fileInput: document.getElementById('fileInput'),
   uploadBtn: document.getElementById('uploadBtn'),
@@ -139,8 +144,25 @@ async function loadExcelFromUrl(url) {
 }
 
 async function loadDefaultData() {
-  const boxUrl = 'https://apple.box.com/s/tseyvar4l9h0hwdunkfjdpbrg7xilgce';
+  for (const url of GITHUB_EXCEL_URLS) {
+    try {
+      const { records, sheetName } = await loadExcelFromUrl(url);
+      state.rawData = records.map(normalizeRow);
+      state.filteredData = [...state.rawData];
+      state.sheetName = sheetName || 'team-inputs.xlsx';
+      renderSummary(state.filteredData);
+      renderTable(state.filteredData);
+      renderCharts(state.filteredData);
+      elements.detailPanel.style.display = 'none';
+      elements.saveBtn.disabled = false;
+      console.log('已自动从 GitHub 加载 Excel 数据：', url);
+      return;
+    } catch (githubError) {
+      console.warn(`自动加载 GitHub Excel 失败：${url}`, githubError);
+    }
+  }
 
+  const boxUrl = 'https://apple.box.com/s/tseyvar4l9h0hwdunkfjdpbrg7xilgce';
   try {
     const { records, sheetName } = await loadExcelFromUrl(boxUrl);
     state.rawData = records.map(normalizeRow);
@@ -152,37 +174,38 @@ async function loadDefaultData() {
     elements.detailPanel.style.display = 'none';
     elements.saveBtn.disabled = false;
     console.log('已自动从 Box 加载 Excel 数据');
-  } catch (error) {
-    console.warn('自动加载 Box Excel 失败：', error);
-    if (window.location.protocol === 'file:' && window.DEFAULT_TEAM_INPUTS) {
-      console.log('使用本地嵌入数据 window.DEFAULT_TEAM_INPUTS');
-      state.rawData = window.DEFAULT_TEAM_INPUTS.map(normalizeRow);
-      state.filteredData = [...state.rawData];
-      renderSummary(state.filteredData);
-      renderTable(state.filteredData);
-      renderCharts(state.filteredData);
-      elements.detailPanel.style.display = 'none';
-      elements.saveBtn.disabled = false;
-      return;
-    }
+    return;
+  } catch (boxError) {
+    console.warn('自动加载 Box Excel 失败：', boxError);
+  }
 
-    // 回退到本地 JSON
-    try {
-      const response = await fetch('team-inputs.json');
-      if (!response.ok) {
-        throw new Error(`无法加载 team-inputs.json：${response.status} ${response.statusText}`);
-      }
-      const jsonData = await response.json();
-      state.rawData = jsonData.map(normalizeRow);
-      state.filteredData = [...state.rawData];
-      renderSummary(state.filteredData);
-      renderTable(state.filteredData);
-      renderCharts(state.filteredData);
-      elements.detailPanel.style.display = 'none';
-      elements.saveBtn.disabled = false;
-    } catch (jsonError) {
-      console.warn('加载本地 JSON 也失败：', jsonError);
+  if (window.location.protocol === 'file:' && window.DEFAULT_TEAM_INPUTS) {
+    console.log('使用本地嵌入数据 window.DEFAULT_TEAM_INPUTS');
+    state.rawData = window.DEFAULT_TEAM_INPUTS.map(normalizeRow);
+    state.filteredData = [...state.rawData];
+    renderSummary(state.filteredData);
+    renderTable(state.filteredData);
+    renderCharts(state.filteredData);
+    elements.detailPanel.style.display = 'none';
+    elements.saveBtn.disabled = false;
+    return;
+  }
+
+  try {
+    const response = await fetch('team-inputs.json');
+    if (!response.ok) {
+      throw new Error(`无法加载 team-inputs.json：${response.status} ${response.statusText}`);
     }
+    const jsonData = await response.json();
+    state.rawData = jsonData.map(normalizeRow);
+    state.filteredData = [...state.rawData];
+    renderSummary(state.filteredData);
+    renderTable(state.filteredData);
+    renderCharts(state.filteredData);
+    elements.detailPanel.style.display = 'none';
+    elements.saveBtn.disabled = false;
+  } catch (jsonError) {
+    console.warn('加载本地 JSON 也失败：', jsonError);
   }
 }
 
