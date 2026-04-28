@@ -1,0 +1,122 @@
+window.DEFAULT_TEAM_INPUTS = [
+  {
+    "No.": "Item 1",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "BM 26项目Engineering Engagement",
+    "items Desription": "范围审阅，设计沟通，厂家考察，etc. （方向：和Places每周沟通，Engineering Team 制定和提出技术规范和要求，下周一做DCOE内部的同步, 并确定各项的要求）",
+    "Comments & Actions": "Weekly touch base wth Places team, including DCOE combination inputs;  DCOE internal syncing and call out;",
+    "Status": "Done",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 2",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "GYA冷机修复同步；",
+    "items Desription": "（行动：先做紧急维修和更换，再做故障冷机维修）",
+    "Comments & Actions": "现场沟通，CN，US沟通非常好！Team make decision. (Debate, different ideas, make decision base on principles, for example, Ops Priority in this case.)冷机维保的事项；（是否需要加入大保）/ 维保中增加震动测试;JCI检测报告的安排和计划；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 3",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "洗眼器范围和方案同步；",
+    "items Desription": "（行动：和EHS Team做进一步澄清）",
+    "Comments & Actions": "EHS/Places team have been aligned.",
+    "Status": "Done",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 4",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "BM27项目后面有追加项的原因和跟踪；",
+    "items Desription": null,
+    "Comments & Actions": "Monthly update within Places, IS team based on local discussion.",
+    "Status": "Done",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 5",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "ULA水管修复方案同步；",
+    "items Desription": "（方向：DCOE内部同步并达成一致意见，供给团队决策和参考）",
+    "Comments & Actions": "Update: 4/17- 6个Options from Places Team. (已经讨论并做了进一步评估）Principles for decision:  - Ops stability(稳定性可靠性） as the first priority. - 质量可靠性，施工难易；（Piority 2)- 交付后的可维护性；(Piority 3)方案2；- 最大化利用原有管道，便于以后维修；- 施工成本低；- 不太美观；是否存在对结构的影响；需要结构专家的评估和报告；（Decision Point)方案6:施工的难易来讲，方案2更简单，更便于施工和维护；防冻考虑；（冻土层以下）结构影响；Actions：Place team提供结构工程的专业建议；（Communicate with Places team in regular meeting)-Update 4/23 Option 6/7 may prefer. (TBD) Waiting for US team further feedback.",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 6",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "水顾问利田报告没有第一时间和Apple来分享的关注；（后续改进措施）",
+    "items Desription": null,
+    "Comments & Actions": "约定报告发出时间（整合和AIPO review后）：月初第一周内（before）发出；（厂家的原始报告）希望看到Consultant Report; Update：2026/4/23- 每月第一周/二周发出；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 7",
+    "Raiser": null,
+    "Raised Date": "4/9/2026",
+    "Item Name": "氮气发生装置的讨论；",
+    "items Desription": null,
+    "Comments & Actions": "Udpate 4/9四个部分（压缩机，干燥机，过滤阀组，氮气发生器）集成一个Package还是分开Bid？Make Decision; 可选方案：只换氮气发生器，其他部分保持原有的品牌；（TBD）在LDI沟通中先提出想法要要求；（Proposals from LDI.)",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 8",
+    "Raiser": null,
+    "Raised Date": "4/16/2026",
+    "Item Name": "PSG maintenance和spare parts这部分，看下FY27 or Future有没有需要做？",
+    "items Desription": null,
+    "Comments & Actions": "Update : 4/23 需要Double Confirm with DCO / PSG maintenance frequency; Team comments: - 元器件多，重要性高，关注度高； - 现场有过发电机停机报警； - 已经有预算计划；（50W+/Site) - 建议进-行；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 9",
+    "Raiser": null,
+    "Raised Date": "4/16/2026",
+    "Item Name": "电池回收关注（EHS，Compliance)",
+    "items Desription": null,
+    "Comments & Actions": "Udpate: 4/23需要AIPO公司名义注册在国家平台注册，C&D探索本地供应商的可能性；变电站battery: 已经本地公司有危废协议；（<100Tons, 2027元旦截止）",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 10",
+    "Raiser": null,
+    "Raised Date": "4/23/2026",
+    "Item Name": "ULA domestic water 环网修复计划？",
+    "items Desription": null,
+    "Comments & Actions": "Udpate: 4/235月份US team visit来决定；（方案已经发出）现场准备EOP; (Ready Before US visit)准备临时方案/永久方案；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 11",
+    "Raiser": null,
+    "Raised Date": "4/23/2026",
+    "Item Name": "岩棉问题（ULA+GYA）的讨论",
+    "items Desription": null,
+    "Comments & Actions": "Udpate: 4/23DH修复时可能产生的灰尘，重点关注施工方案；施工方案保证确保服务器的正常运行和无尘环境；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  },
+  {
+    "No.": "Item 12",
+    "Raiser": null,
+    "Raised Date": "4/23/2026",
+    "Item Name": "变电站OPS预算（FY27+FY26）",
+    "items Desription": null,
+    "Comments & Actions": "4月底前，初稿就绪，重点关注可能的增项和价格变化；",
+    "Status": "Ongoing",
+    "Other Remark ": null
+  }
+];

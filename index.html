@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Inputs Display </title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="page-container">
+    <header class="page-header">
+      <div>
+        <h1>DCOE Team Discussion Items</h1>
+        <p>Based On Data </p>
+      </div>
+      <div class="file-upload">
+        <label for="fileInput">选择数据源文件：</label>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" />
+        <button id="uploadBtn">上传</button>
+        <button id="saveBtn" disabled>保存修改</button>
+      </div>
+      <div class="status-badges" id="summary-cards"></div>
+    </header>
+
+    <section class="panel filters-panel">
+      <div class="filter-group">
+        <label>搜索</label>
+        <input id="searchInput" type="search" placeholder="搜索 Item Name、Comments 或 Description" />
+      </div>
+      <div class="filter-group">
+        <label>状态</label>
+        <select id="statusFilter">
+          <option value="all">全部</option>
+          <option value="Done">Done</option>
+          <option value="Ongoing">Ongoing</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>日期范围</label>
+        <div class="date-range">
+          <input id="dateFrom" type="date" />
+          <span>~</span>
+          <input id="dateTo" type="date" />
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button id="resetFiltersBtn">重置筛选</button>
+      </div>
+    </section>
+
+    <section class="panel chart-panel">
+      <div class="chart-card">
+        <h2>状态分布</h2>
+        <div id="statusChart" class="chart-box"></div>
+      </div>
+      <div class="chart-card">
+        <h2>提交日期趋势</h2>
+        <div id="dateChart" class="chart-box"></div>
+      </div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="table-header">
+        <h2>输入明细</h2>
+        <span id="rowCountLabel"></span>
+      </div>
+      <div class="table-wrapper">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Raised Date</th>
+              <th>Item Name</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel detail-panel" id="detailPanel" style="display: none;">
+      <h2>选中项详情</h2>
+      <div class="detail-content">
+        <div class="detail-field">
+          <strong>Item Name:</strong> <span id="detailItemName"></span>
+        </div>
+        <div class="detail-field">
+          <strong>Description:</strong> <span id="detailDescription"></span>
+        </div>
+        <div class="detail-field">
+          <strong>Comments & Actions:</strong> <span id="detailComments"></span>
+        </div>
+        <div class="detail-field">
+          <strong>更新历史:</strong>
+          <ul id="updateHistory"></ul>
+        </div>
+        <div class="detail-field">
+          <label>添加新更新:</label>
+          <textarea id="newUpdateInput" placeholder="输入新的更新内容"></textarea>
+          <button id="addUpdateBtn">添加更新</button>
+        </div>
+        <div class="detail-field">
+          <label>更新日期:</label>
+          <input type="date" id="updateDateInput" />
+          <button id="updateDateBtn">更新日期</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel note-panel">
+      <p>提示：上传 Excel 文件后，页面会自动解析并显示数据。选中表格行可查看详情。</p>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
+
